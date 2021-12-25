@@ -1,8 +1,8 @@
 from typing import List, Optional
 
-from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Relationship, Session, SQLModel, select
 
-from .db import engine
+from .db import engine, create_db_and_tables
 
 
 class Team(SQLModel, table=True):
@@ -21,10 +21,6 @@ class Hero(SQLModel, table=True):
 
     team_id: Optional[int] = Field(default=None, foreign_key="team.id")
     team: Optional[Team] = Relationship(back_populates="heroes")
-
-
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
 
 
 def create_heroes():

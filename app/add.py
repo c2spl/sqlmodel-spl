@@ -3,7 +3,7 @@ from typing import Optional, Tuple
 import sqlmodel as sm
 from loguru import logger
 
-from .db import engine
+from .db import engine, create_db_and_tables
 
 
 class Hero(sm.SQLModel, table=True):
@@ -40,12 +40,8 @@ def create_rows() -> None:
         output(prefix, (hero1, hero2))
 
 
-def create_tables():
-    sm.SQLModel.metadata.create_all(engine)
-
-
 def main():
-    create_tables()
+    create_db_and_tables()
     create_rows()
 
 
